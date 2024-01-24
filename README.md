@@ -1,15 +1,17 @@
 # mite duplicator rust
 
 ```bash
-cargo run -- --message-socket=tcp://0.0.0.0:14302 tcp://0.0.0.0:14304 tcp://0.0.0.0:14305
+# build with optimizations
+cargo run --release -- --message-socket=tcp://0.0.0.0:14302 tcp://0.0.0.0:14500
+
+# cargo build --release
 ```
 
 ## todo
 
-[ ] change producer.py to ensure data integrity between prod/con - time and error report 
+[ ] include time metrics in `producer.py`
 
-[ ] in `src/main.rs:run` defer the sending of message to a seperate thread/proc?
-    share a `Vec`? (some form of data stream?)
+[ ] add a couple more debug messages in `main.rs`
 
 
 # python test script

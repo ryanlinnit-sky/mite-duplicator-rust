@@ -265,6 +265,7 @@ name = "mite-duplicator-rust"
 version = "0.1.0"
 dependencies = [
  "clap",
+ "crossbeam-channel",
  "zmq",
 ]
 
