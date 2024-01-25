@@ -1,11 +1,20 @@
-FROM rust:latest as builder
+FROM --platform=amd64 rust:latest as builder
 WORKDIR /usr/src/duplicator
 COPY . .
 RUN cargo install --path .
 
-FROM debian:bookworm-slim
+FROM --platform=amd64 debian:bookworm-slim
 RUN apt-get update & apt-get install -y extra-runtime-dependencies & rm -rf /var/lib/apt/lists/*
 COPY --from=builder /usr/local/cargo/bin/mite-duplicator-rust /usr/local/bin/mite-duplicator-rust
+
+ARG USERID="9000"
+ARG USERGROUPID="9000"
+ARG USER_NAME="miteuser"
+
+RUN addgroup --gid ${USERGROUPID} ${USER_NAME}
+RUN adduser --uid ${USERID} --gid ${USERGROUPID} ${USER_NAME}
+
+USER ${USERID}
 
 CMD ["mite-duplicator-rust"]
 
